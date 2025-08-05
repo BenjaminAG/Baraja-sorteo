@@ -23,4 +23,4 @@ INSERT INTO cartas (carta) VALUES
 
 -- Hash de 'admin123' con werkzeug
 INSERT INTO usuarios (username, password, rol) VALUES
-('admin', 'pbkdf2:sha256:600000$dummy$1234567890abcdef', 'admin');
+('admin', 'pbkdf2:sha256:600000$dummy$1234567890abcdef', 'admin'),('usuario', '1234', 'usuario');
