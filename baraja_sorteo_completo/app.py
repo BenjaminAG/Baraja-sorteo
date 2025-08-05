@@ -80,6 +80,21 @@ def admin():
     cartas = db.execute("SELECT * FROM cartas").fetchall()
     return render_template('admin.html', cartas=cartas)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)), debug=True)
+# 🔐 Crear usuario admin automáticamente si no existe
+def crear_usuario_admin():
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("SELECT * FROM usuarios WHERE username = ?", ('admin',))
+    if c.fetchone() is None:
+        hash_pass = generate_password_hash("admin123")
+        c.execute("INSERT INTO usuarios (username, password, rol) VALUES (?, ?, ?)",
+                  ('admin', hash_pass, 'admin'))
+        conn.commit()
+        print("✅ Usuario admin creado: admin / admin123")
+    else:
+        print("ℹ️ Usuario admin ya existe.")
+    conn.close()
 
+if __name__ == '__main__':
+    crear_usuario_admin()
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)), debug=True)
