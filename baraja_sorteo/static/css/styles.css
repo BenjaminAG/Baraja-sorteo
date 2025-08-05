@@ -1,0 +1,28 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#baraja {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.carta {
+  width: 80px;
+  height: 120px;
+  border: 1px solid #000;
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.vendida {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
