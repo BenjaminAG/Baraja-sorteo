@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Usuario - Sorteo</title>
+    <title>Panel Administrador - Sorteo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Panel Usuario</h1>
+    <h1>Panel Administrador</h1>
     <p><a href="{{ url_for('logout') }}">Cerrar sesión</a></p>
     
     <div class="cartas">
@@ -14,15 +14,15 @@
             <div class="carta {% if carta.nombre %}asignada{% endif %}">
                 <strong>{{ carta.carta }}</strong><br>
                 {% if carta.nombre %}
-                    <span>{{ carta.nombre }}</span><br>
-                    <span>{{ carta.telefono }}</span>
-                {% else %}
                     <form method="POST">
                         <input type="hidden" name="carta_id" value="{{ carta.id }}">
-                        <input type="text" name="nombre" placeholder="Nombre" required><br>
-                        <input type="text" name="telefono" placeholder="Teléfono" required><br>
-                        <button class="btn" type="submit">Asignar</button>
+                        <input type="text" name="nombre" value="{{ carta.nombre }}" required><br>
+                        <input type="text" name="telefono" value="{{ carta.telefono }}" required><br>
+                        <button class="btn" type="submit" name="action" value="editar">Editar</button>
+                        <button class="btn eliminar" type="submit" name="action" value="eliminar">Eliminar</button>
                     </form>
+                {% else %}
+                    <span>No asignada</span>
                 {% endif %}
             </div>
         {% endfor %}
