@@ -13,15 +13,13 @@
             <td>{{ carta['carta'] }}</td>
             <td>{{ 'Disponible' if not carta['nombre'] else 'Asignada a ' ~ carta['nombre'] }}</td>
             <td>
-            {% if not carta['nombre'] %}
-                <form method="post">
-                    <input type="hidden" name="carta_id" value="{{ carta['id'] }}">
-                    <input type="text" name="nombre" placeholder="Nombre" required>
-                    <input type="text" name="telefono" placeholder="Teléfono" required>
-                    <button type="submit">Asignar</button>
-                </form>
-            {% else %}
-                -
+            {% if not carta.nombre %}
+            <form method="POST">
+              <input type="hidden" name="carta_id" value="{{ carta.id }}">
+              <input type="text" name="nombre" placeholder="Nombre" required>
+              <input type="text" name="telefono" placeholder="Teléfono" required>
+              <button type="submit">Asignar</button>
+            </form>
             {% endif %}
             </td>
         </tr>
