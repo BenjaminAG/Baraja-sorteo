@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usuario - Sorteo</title>
+</head>
+<body>
+    <h2>Cartas Disponibles</h2>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    <table border="1">
+        <tr><th>Carta</th><th>Estado</th><th>Acción</th></tr>
+        {% for carta in cartas %}
+        <tr>
+            <td>{{ carta['carta'] }}</td>
+            <td>{{ 'Disponible' if not carta['nombre'] else 'Asignada a ' ~ carta['nombre'] }}</td>
+            <td>
+            {% if not carta['nombre'] %}
+                <form method="post">
+                    <input type="hidden" name="carta_id" value="{{ carta['id'] }}">
+                    <input type="text" name="nombre" placeholder="Nombre" required>
+                    <input type="text" name="telefono" placeholder="Teléfono" required>
+                    <button type="submit">Asignar</button>
+                </form>
+            {% else %}
+                -
+            {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
