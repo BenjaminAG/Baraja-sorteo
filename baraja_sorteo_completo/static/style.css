@@ -1,0 +1,41 @@
+.carta-container {
+    perspective: 1000px;
+    display: inline-block;
+    margin: 10px;
+}
+
+.carta {
+    width: 120px;
+    height: 180px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+    cursor: pointer;
+}
+
+.carta.flipped {
+    transform: rotateY(180deg);
+}
+
+.cara, .dorso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.dorso {
+    background: darkred;
+    color: white;
+}
+
+.cara {
+    background: white;
+    color: black;
+    transform: rotateY(180deg);
+}
