@@ -3,6 +3,8 @@ import random
 import json
 import os
 
+# Crear carpeta 'data' si no existe
+os.makedirs("data", exist_ok=True)
 app = Flask(__name__)
 
 CARTAS_FILE = 'data/cartas.json'
