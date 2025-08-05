@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: baraja-sorteo
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: "python baraja_sorteo/app.py"
