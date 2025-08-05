@@ -8,31 +8,23 @@
     <a href="{{ url_for('logout') }}">Cerrar sesión</a>
     <table border="1">
         <tr><th>Carta</th><th>Nombre</th><th>Teléfono</th><th>Acciones</th></tr>
-        {% for carta in cartas %}
-        <tr>
-            <td>{{ carta['carta'] }}</td>
-            <td>{{ carta['nombre'] or '-' }}</td>
-            <td>{{ carta['telefono'] or '-' }}</td>
-            <td>
-                {% if carta['nombre'] %}
-                <form method="post" style="display:inline;">
-                    <input type="hidden" name="action" value="editar">
-                    <input type="hidden" name="carta_id" value="{{ carta['id'] }}">
-                    <input type="text" name="nombre" value="{{ carta['nombre'] }}" required>
-                    <input type="text" name="telefono" value="{{ carta['telefono'] }}" required>
-                    <button type="submit">Guardar</button>
-                </form>
-                <form method="post" style="display:inline;">
-                    <input type="hidden" name="action" value="eliminar">
-                    <input type="hidden" name="carta_id" value="{{ carta['id'] }}">
-                    <button type="submit" onclick="return confirm('¿Eliminar asignación?')">Eliminar</button>
-                </form>
-                {% else %}
-                    -
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
+       {% for carta in cartas %}
+<div class="carta-container">
+  <div class="carta {% if carta.nombre %}flipped{% endif %}" onclick="this.classList.toggle('flipped')">
+    <div class="dorso">Carta</div>
+    <div class="cara">
+      {% if carta.nombre %}
+        {{ carta.carta }}<br>
+        {{ carta.nombre }}<br>
+        {{ carta.telefono }}
+      {% else %}
+        {{ carta.carta }}<br>
+        Disponible
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endfor %}
     </table>
 </body>
 </html>
