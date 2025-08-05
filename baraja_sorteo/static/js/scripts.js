@@ -8,8 +8,14 @@ function cargarCartas() {
       contenedor.innerHTML = '';
       data.forEach(carta => {
         const div = document.createElement('div');
-        div.className = 'carta' + (carta.vendida ? ' vendida' : '');
-        div.innerHTML = `<strong>${carta.numero}</strong><br>${carta.palo}`;
+        div.className = 'carta';
+        if (carta.vendida) {
+          div.classList.add('vendida');
+          div.innerHTML = `<span>🂠</span><small>${carta.nombre}</small>`;
+        } else {
+          div.innerHTML = `<strong>${carta.numero}</strong><br>${carta.palo}`;
+          div.onclick = () => mostrarFormulario(carta);
+        }
         contenedor.appendChild(div);
       });
     });
