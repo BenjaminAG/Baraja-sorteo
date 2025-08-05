@@ -14,13 +14,14 @@
     <div class="dorso">Carta</div>
     <div class="cara">
       {% if carta.nombre %}
-        {{ carta.carta }}<br>
-        {{ carta.nombre }}<br>
-        {{ carta.telefono }}
-      {% else %}
-        {{ carta.carta }}<br>
-        Disponible
-      {% endif %}
+        <form method="POST">
+          <input type="hidden" name="carta_id" value="{{ carta.id }}">
+          <input type="text" name="nombre" value="{{ carta.nombre }}" required>
+          <input type="text" name="telefono" value="{{ carta.telefono }}" required>
+          <button name="action" value="editar">Editar</button>
+          <button name="action" value="eliminar">Eliminar</button>
+        </form>
+        {% endif %}
     </div>
   </div>
 </div>
