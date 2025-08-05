@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Usuario - Sorteo</title>
+    <meta charset="UTF-8">
+    <title>Panel Usuario - Sorteo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Cartas Disponibles</h2>
-    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
-    <table border="1">
-        <tr><th>Carta</th><th>Estado</th><th>Acción</th></tr>
+    <h1>Panel Usuario</h1>
+    <p><a href="{{ url_for('logout') }}">Cerrar sesión</a></p>
+    
+    <div class="cartas">
         {% for carta in cartas %}
-        <tr>
-            <td>{{ carta['carta'] }}</td>
-            <td>{{ 'Disponible' if not carta['nombre'] else 'Asignada a ' ~ carta['nombre'] }}</td>
-            <td>
-            {% if not carta.nombre %}
-            <form method="POST">
-              <input type="hidden" name="carta_id" value="{{ carta.id }}">
-              <input type="text" name="nombre" placeholder="Nombre" required>
-              <input type="text" name="telefono" placeholder="Teléfono" required>
-              <button type="submit">Asignar</button>
-            </form>
-            {% endif %}
-            </td>
-        </tr>
+            <div class="carta {% if carta.nombre %}asignada{% endif %}">
+                <strong>{{ carta.carta }}</strong><br>
+                {% if carta.nombre %}
+                    <span>{{ carta.nombre }}</span><br>
+                    <span>{{ carta.telefono }}</span>
+                {% else %}
+                    <form method="POST">
+                        <input type="hidden" name="carta_id" value="{{ carta.id }}">
+                        <input type="text" name="nombre" placeholder="Nombre" required><br>
+                        <input type="text" name="telefono" placeholder="Teléfono" required><br>
+                        <button class="btn" type="submit">Asignar</button>
+                    </form>
+                {% endif %}
+            </div>
         {% endfor %}
-    </table>
+    </div>
 </body>
 </html>
