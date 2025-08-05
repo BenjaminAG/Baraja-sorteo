@@ -17,19 +17,19 @@ class Carta(db.Model):
     nombre = db.Column(db.String, default="")
     telefono = db.Column(db.String, default="")
 
-# INICIALIZAR BASE DE DATOS
-@app.before_first_request
+# 👇 Este bloque se ejecuta directamente al arrancar la app
 def crear_tabla_y_cartas():
-    db.create_all()
-    if Carta.query.count() == 0:
-        palos = ["oros", "copas", "espadas", "bastos"]
-        numeros = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12]
-        for palo in palos:
-            for numero in numeros:
-                id_carta = f"{numero}-{palo}"
-                nueva = Carta(id=id_carta, numero=numero, palo=palo)
-                db.session.add(nueva)
-        db.session.commit()
+    with app.app_context():
+        db.create_all()
+        if Carta.query.count() == 0:
+            palos = ["oros", "copas", "espadas", "bastos"]
+            numeros = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12]
+            for palo in palos:
+                for numero in numeros:
+                    id_carta = f"{numero}-{palo}"
+                    nueva = Carta(id=id_carta, numero=numero, palo=palo)
+                    db.session.add(nueva)
+            db.session.commit()
 
 # RUTAS
 @app.route('/')
@@ -88,5 +88,6 @@ def vender_carta():
     return jsonify({"error": "Carta no encontrada"}), 400
 
 if __name__ == '__main__':
+    crear_tabla_y_cartas()  # 🔥 Ejecutamos esto al arranque
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host="0.0.0.0", port=port)
